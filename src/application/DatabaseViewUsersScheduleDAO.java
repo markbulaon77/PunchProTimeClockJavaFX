@@ -7,15 +7,14 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class ViewUsersScheduleDAO {
+public class DatabaseViewUsersScheduleDAO {
 	
 	private Connection conn;
 	private ArrayList<PunchPro_Schedule> userSchedList;
 	
-	public ViewUsersScheduleDAO(Connection conn) {
+	public DatabaseViewUsersScheduleDAO(Connection conn) {
 		this.conn = conn;
 	}
-	//public ArrayList<PunchPro_Schedule> viewUsersSchedule(int user_number, LocalDate work_date, String shift_start_time, String shift_end_time) 
 	public ArrayList<PunchPro_Schedule> viewUsersSchedule(int user_number, LocalDate work_date, String shift_start_time, String shift_end_time){
 		userSchedList = new ArrayList<>();
 		
@@ -29,8 +28,6 @@ public class ViewUsersScheduleDAO {
 			stmt.setDate(2, sqlDate);
 			stmt.setString(3, shift_start_time);
 			stmt.setString(4, shift_end_time);
-		
-			
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
 				PunchPro_Schedule user_schedule = new PunchPro_Schedule(
@@ -46,7 +43,6 @@ public class ViewUsersScheduleDAO {
 			}
 			rs.close();
 			stmt.close();
-			
 		}catch(SQLException e) {
 			System.out.println("Error: " + e.getMessage() + " " + e.getErrorCode());
 		}

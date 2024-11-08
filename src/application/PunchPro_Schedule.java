@@ -1,6 +1,5 @@
 package application;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class PunchPro_Schedule {
@@ -38,7 +37,6 @@ public class PunchPro_Schedule {
 	    this.shift_2nd_break = shift_2nd_break;
 	    this.shift_clock_outTime = shift_clock_outTime;
 	}
-
 
 	public int getUser_number() {
 		return user_number;

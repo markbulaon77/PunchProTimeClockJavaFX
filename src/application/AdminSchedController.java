@@ -46,22 +46,23 @@ public class AdminSchedController {
 	private ObservableList<PunchPro_Employee> employeeData;
 	private ViewUsersDAO viewEmployeeDB;
 	private DatabaseAddScheduleDAO schedAddDB;
-	private ViewUsersScheduleDAO viewSchedDB;
 	
 	public void setDatabaseConnection(DatabaseConnection dbConnection) throws ClassNotFoundException {
 		this.conn = dbConnection.connect_to_database();	
 		this.viewEmployeeDB = new ViewUsersDAO(conn);
 		this.schedAddDB = new DatabaseAddScheduleDAO(conn);
-		//this.viewSchedDB = new ViewUsersScheduleDAO(conn);
 	}
 	
 	@FXML
 	public void initialize() {
 		dateFocus = ZonedDateTime.now();
 		today = ZonedDateTime.now();
-		drawCalendar();
 		configurableTableColumns();
 		employeeTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			if(newSelection !=null) {
+				int userNumber = newSelection.getEmployee_number();
+				drawCalendar(userNumber);
+			}
 		});
 	}
 	
@@ -96,6 +97,12 @@ public class AdminSchedController {
 			secondBreakTF.getText(),
 			endShiftTF.getText()
 			);
+				
+			if(datePicker.getValue() == null) {
+				System.out.println("Please select a date");
+				return;
+			}
+			
 			if(schedAddDB.addUserSchedule(newSchedule)) {
 				System.out.println("Schedule added sucessfully.");
 			}else {
@@ -128,17 +135,17 @@ public class AdminSchedController {
 	public void backOneMonth(ActionEvent e) {
 		dateFocus = dateFocus.minusMonths(1);
 		calendar.getChildren().clear();
-		drawCalendar();
+		drawCalendar(0);
 	}
 	
 	@FXML
 	public void forwardOneMonth(ActionEvent e) {
 		dateFocus = dateFocus.plusMonths(1);
 		calendar.getChildren().clear();
-		drawCalendar();
+		drawCalendar(0);
 	}
 	
-	public void drawCalendar() {
+	public void drawCalendar(int userNumber) {
 		year.setText(String.valueOf(dateFocus.getYear()));
 		month.setText(String.valueOf(dateFocus.getMonth()));
 		
@@ -147,7 +154,7 @@ public class AdminSchedController {
 		double strokeWidth = 1;
 		double spacingH = calendar.getHgap();
 		double spacingV = calendar.getVgap();
-		String days[] = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
+		//String days[] = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 		
 		int monthMaxDate = dateFocus.getMonth().maxLength();
 		
@@ -155,10 +162,67 @@ public class AdminSchedController {
 			monthMaxDate = 28;
 		}
 		
-        int dateOffset = ZonedDateTime.of(dateFocus.getYear(), dateFocus.getMonthValue(), 1,0,0,0,0,dateFocus.getZone()).getDayOfWeek().getValue();
+        int dateOffSet = ZonedDateTime.of(dateFocus.getYear(), dateFocus.getMonthValue(), 1,0,0,0,0,dateFocus.getZone()).getDayOfWeek().getValue();
         
         calendar.getChildren().clear();
         
+        //Fetch the user's schedule for the current month.
+        DatabaseViewUsersScheduleDAO scheduleDAO = new DatabaseViewUsersScheduleDAO(conn);
+        ArrayList<PunchPro_Schedule> scheduleList = new ArrayList<>();
+        
+        //Looping through each day of the month.
+        for(int day = 1; day <= monthMaxDate; day++) {
+        	LocalDate workDate = LocalDate.of(dateFocus.getYear(), dateFocus.getMonthValue(), day);
+        	ArrayList<PunchPro_Schedule> dailySchedule = scheduleDAO.viewUsersSchedule(userNumber, workDate, "Start Time: ", "End Time: "); //updating to actual shift times.
+        	
+        	
+        	//StackPane for eachDay.
+        	StackPane stackPane = new StackPane();
+        	Rectangle rectangle = new Rectangle();
+        	rectangle.setFill(Color.TRANSPARENT);
+        	rectangle.setStroke(Color.BLACK);
+        	rectangle.setStrokeWidth(strokeWidth);
+        	
+        	double rectangleWidth = (calendarWidth / 8) - strokeWidth - spacingH;
+        	double rectangleHeight = (calendarHeight / 8) - strokeWidth - spacingV;
+        	rectangle.setWidth(rectangleWidth);
+        	rectangle.setHeight(rectangleHeight);
+        	
+        	stackPane.getChildren().add(rectangle);
+        	
+        	// Determine the position in the calendar grid.
+        	int row = (day + dateOffSet - 1 ) / 7;
+        	int col = (day + dateOffSet - 1 ) % 7;
+        	
+        	//Add date number
+        	Text dateText = new Text(String.valueOf(day));
+        	dateText.setTranslateY(-rectangleHeight / 2 * 0.75);
+        	stackPane.getChildren().add(dateText);
+        	
+        	//Check if there is a schedule for this date.
+        	if(!dailySchedule.isEmpty()) {
+        		StringBuilder scheduleDetails = new StringBuilder();
+        		
+        		for(PunchPro_Schedule schedule : dailySchedule) {
+        			scheduleDetails.append("Shift: ").append(schedule.getShift_start_time()).append("\n");
+        		}
+        		
+        		
+        		Text scheduleText = new Text(scheduleDetails.toString());
+        		scheduleText.setTranslateY(rectangleHeight / 4); // Adjust if needed...
+        		stackPane.getChildren().add(scheduleText);
+        	}
+        	
+        	//HighLight today's date/
+        	if (today.getYear() == dateFocus.getYear() && today.getMonth() == dateFocus.getMonth() && today.getDayOfMonth() == day) {
+        		rectangle.setStroke(Color.BLUE);
+        	}
+        	
+        	//Add the stackPane to calendar grid
+        	calendar.getChildren().add(stackPane);
+        }   
+        
+        /*
         for(int i = 0; i < 6; i++) {
         	for(int j = 0; j < 7; j++) {
         		
@@ -190,10 +254,12 @@ public class AdminSchedController {
                          rectangle.setStroke(Color.BLUE);
                     }
         		}
-        		
+   
         		calendar.getChildren().add(stackPane);
         	}
-        } 
+        	
+        }*/ 
+        //Old loop...
 	}
 }
 	

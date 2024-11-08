@@ -13,7 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class adminDashBoardController {
+public class AdminDashBoardController {
 			
 	@FXML private Button goToCrudForm, scheduleMgmtForm;
 	@FXML private Label nameLabel;

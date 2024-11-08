@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UserAddDAO {
+public class DatabaseUserAddDAO {
 
 	private Connection conn;
 	
-	public UserAddDAO(Connection conn) {
+	public DatabaseUserAddDAO(Connection conn) {
 		this.conn = conn;
 	}
 

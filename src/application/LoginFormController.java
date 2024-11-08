@@ -43,7 +43,7 @@ public class LoginFormController {
 				Parent adminDashBoard = loader.load();
 				
 				//Get the controller and pass the username.
-				adminDashBoardController controller = loader.getController();
+				AdminDashBoardController controller = loader.getController();
 				controller.setWelcomeMessage(employee.getEmployee_username());
 				
 				//Switch Scene...

@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DeleteUsersDAO {
+public class DatabaseDeleteUsersDAO {
 	
 	private Connection conn;
 	
-	public DeleteUsersDAO(Connection conn) {
+	public DatabaseDeleteUsersDAO(Connection conn) {
 		this.conn = conn;
 	}
 	

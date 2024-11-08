@@ -29,19 +29,19 @@ public class AdminCrudController {
 	colUserName, colJobDescription;
 	
 	private Connection conn;
-	private UserAddDAO userAddDB;
+	private DatabaseUserAddDAO userAddDB;
 	private ViewUsersDAO viewEmployeeDB;
-	private DeleteUsersDAO delEmployeeDB;
-	private UpdateUsersDAO updateEmployeeDB;
+	private DatabaseDeleteUsersDAO delEmployeeDB;
+	private DatabaseUpdateUsersDAO updateEmployeeDB;
 	private ObservableList<PunchPro_Employee> employeeData;
 	private ArrayList<PunchPro_Employee> employeeList;
 	
 	public void setDatabaseConnection(DatabaseConnection dbConnection) throws ClassNotFoundException   {
 		this.conn = dbConnection.connect_to_database(); //Created a single instance of the sql connection to streamline it...
-		this.userAddDB = new UserAddDAO(conn);
+		this.userAddDB = new DatabaseUserAddDAO(conn);
 		this.viewEmployeeDB = new ViewUsersDAO(conn);
-		this.delEmployeeDB = new DeleteUsersDAO(conn);
-		this.updateEmployeeDB = new UpdateUsersDAO(conn);
+		this.delEmployeeDB = new DatabaseDeleteUsersDAO(conn);
+		this.updateEmployeeDB = new DatabaseUpdateUsersDAO(conn);
 		System.out.println("Database connected and DAO's initiliazed"); 
 	}
 	
