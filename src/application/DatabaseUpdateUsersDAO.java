@@ -14,7 +14,9 @@ public class DatabaseUpdateUsersDAO {
 	
 	public boolean updateUserRecord(PunchPro_Employee employee) {
 		
-	    String sql = "UPDATE punchprodatabase.users SET employee_first_name = ?, employee_last_name = ?, employee_contact_number = ?, employee_job_description = ?, username =? WHERE employee_number = ?";
+	    String sql = "UPDATE punchprodatabase.users SET " + 
+	    "employee_first_name = ?, employee_last_name = ?, employee_contact_number = ?, employee_job_description = ?, username =?" +
+	    " WHERE employee_number = ?";
 		boolean isUpdate = false;
 		
 		try {

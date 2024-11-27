@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminSchedController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" stylesheets="@AdminScheduleManagementForm.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminSchedController">
    <top>
       <VBox prefHeight="100.0" prefWidth="1440.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
          <children>
@@ -35,31 +35,104 @@
                   <TableColumn fx:id="colLastName" minWidth="9.0" prefWidth="174.0" text="Employee Last Name" />
               </columns>
             </TableView>
-            <Button layoutX="13.0" layoutY="598.0" mnemonicParsing="false" onAction="#addScheduleForm" prefHeight="51.0" prefWidth="107.0" text="Add Schedule" />
-            <Button layoutX="13.0" layoutY="655.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="107.0" text="Delete Schedule" />
-            <Button layoutX="134.0" layoutY="600.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="107.0" text="Update Schedule" />
-            <DatePicker fx:id="datePicker" layoutX="15.0" layoutY="293.0" prefHeight="25.0" prefWidth="153.0" promptText="dd/mm/yyyy" />
-            <TextField fx:id="startShiftTF" layoutX="15.0" layoutY="333.0" prefHeight="25.0" prefWidth="153.0" promptText="Enter time start (08:00)" />
-            <TextField fx:id="firstBreakTF" layoutX="15.0" layoutY="375.0" prefHeight="25.0" prefWidth="153.0" promptText="Enter First Break (10:00)" />
-            <TextField fx:id="lunchBreakTF" layoutX="15.0" layoutY="414.0" prefHeight="25.0" prefWidth="154.0" promptText="Enter Lunch Break (12:00)" />
-            <TextField fx:id="secondBreakTF" layoutX="15.0" layoutY="456.0" prefHeight="25.0" prefWidth="154.0" promptText="Enter Second Break (14:00)" />
-            <Label layoutX="175.0" layoutY="337.0" text="Start Shift" />
-            <Label layoutX="175.0" layoutY="379.0" text="First Break" />
-            <Label layoutX="175.0" layoutY="418.0" text="Lunch Break" />
-            <Label layoutX="175.0" layoutY="460.0" text="Second Break" />
-            <TextField fx:id="endShiftTF" layoutX="17.0" layoutY="499.0" prefWidth="154.0" promptText="Enter End Shift (16:00)" />
-            <Label layoutX="175.0" layoutY="503.0" text="End Shift TIme" />
-            <Label layoutX="176.0" layoutY="297.0" text="Date (dd/mm/yyyy)" />
-            <Label layoutX="22.0" layoutY="598.0" />
-            <Button layoutX="134.0" layoutY="656.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="106.0" text="Get Date" />
-            <Label fx:id="employeeSchedule" layoutX="17.0" layoutY="541.0" text="Employee Schedule Date:" />
+            <VBox alignment="CENTER" layoutX="15.0" layoutY="347.0" prefHeight="253.0" prefWidth="275.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" spacing="5.0">
+                     <children>
+                        <TextField fx:id="startShiftTF" prefHeight="25.0" prefWidth="153.0" promptText="Enter time start (08:00)">
+                           <opaqueInsets>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </opaqueInsets>
+                        </TextField>
+                        <Label alignment="CENTER_RIGHT" text="Start Shift" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" spacing="5.0">
+                     <children>
+                        <TextField fx:id="firstBreakTF" prefHeight="25.0" prefWidth="153.0" promptText="Enter First Break (10:00)">
+                           <opaqueInsets>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </opaqueInsets>
+                        </TextField>
+                        <Label text="First Break" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" spacing="5.0">
+                     <children>
+                        <TextField fx:id="lunchBreakTF" prefHeight="25.0" prefWidth="154.0" promptText="Enter Lunch Break (12:00)">
+                           <opaqueInsets>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </opaqueInsets>
+                        </TextField>
+                        <Label text="Lunch Break" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" spacing="5.0">
+                     <children>
+                        <TextField fx:id="secondBreakTF" prefHeight="25.0" prefWidth="154.0" promptText="Enter Second Break (14:00)">
+                           <opaqueInsets>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </opaqueInsets>
+                        </TextField>
+                        <Label text="Second Break" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" spacing="5.0">
+                     <children>
+                        <TextField fx:id="endShiftTF" prefWidth="154.0" promptText="Enter End Shift (16:00)">
+                           <opaqueInsets>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </opaqueInsets>
+                        </TextField>
+                        <Label text="End Shift TIme" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" layoutX="20.0" layoutY="636.0" prefHeight="100.0" prefWidth="480.0" spacing="10.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#addScheduleForm" prefHeight="100.0" prefWidth="100.0" text="Add Schedule">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Get Date">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#updateUserSchedule" prefHeight="100.0" prefWidth="100.0" text="Update Schedule">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#deleteUserSchedule" prefHeight="100.0" prefWidth="100.0" text="Delete Schedule">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox layoutX="13.0" layoutY="287.0" prefHeight="31.0" prefWidth="496.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="59.0" prefWidth="481.0" spacing="25.0">
+                     <children>
+                        <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="153.0" promptText="dd/mm/yyyy" />
+                        <DatePicker fx:id="datePicker2" prefHeight="25.0" prefWidth="153.0" promptText="dd/mm/yyyy" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </left>
    <center>
       <AnchorPane prefHeight="750.0" prefWidth="867.0" BorderPane.alignment="CENTER">
          <children>
-            <FlowPane fx:id="calendar" alignment="TOP_CENTER" layoutX="20.0" layoutY="143.0" prefHeight="601.0" prefWidth="883.0" />
+            <FlowPane fx:id="calendar" alignment="TOP_CENTER" layoutX="16.0" layoutY="75.0" prefHeight="601.0" prefWidth="883.0" stylesheets="@AdminScheduleManagementForm.css">
+               <children>
+                  <StackPane prefHeight="150.0" prefWidth="200.0" />
+               </children></FlowPane>
             <HBox alignment="TOP_CENTER" layoutX="324.0" layoutY="11.0" prefHeight="44.0" prefWidth="266.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#backOneMonth" prefHeight="37.0" prefWidth="52.0" text="&lt;">
@@ -88,7 +161,6 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <StackPane prefHeight="150.0" prefWidth="200.0" />
          </children>
       </AnchorPane>
    </center>

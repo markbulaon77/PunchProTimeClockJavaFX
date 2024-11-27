@@ -22,14 +22,14 @@ public class PunchPro_Employee {
 	}
 	
 	//Overloaded#2: for UserAddDAO
-	public PunchPro_Employee(String employee_username, String employee_first_name, String employee_last_name,
-		String employee_contact_number, String employee_job_description) 
+	public PunchPro_Employee(String employee_first_name, String employee_last_name, String employee_contact_number,
+		String employee_username, String employee_job_description) 
 	{	
-		this.employee_username = employee_username;
-		this.employee_first_name = employee_first_name;
-		this.employee_last_name = employee_last_name;
-		this.employee_contact_number = employee_contact_number;
-		this.employee_job_description = employee_job_description;
+		 this.employee_first_name = employee_first_name;
+		 this.employee_last_name = employee_last_name;
+		 this.employee_contact_number = employee_contact_number;
+		 this.employee_username = employee_username;
+		  this.employee_job_description = employee_job_description;
 	}
 
 	//Overloaded#3: for ViewUserDAO

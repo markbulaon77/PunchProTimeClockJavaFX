@@ -98,7 +98,6 @@ public class AdminCrudController {
 	private void refreshEmployeeList() 
 	{
 		viewEmployeeList();
-		employeeTable.refresh();
 	}
 	
 	@FXML
@@ -138,10 +137,15 @@ public class AdminCrudController {
 	
 	public void viewEmployeeList() {
 		if(viewEmployeeDB !=null) {
+			employeeList = viewEmployeeDB.viewUsers();
+			employeeData = FXCollections.observableArrayList(employeeList);
+			employeeTable.setItems(employeeData);
+			setTotalEmployees(employeeList);
+			/*
 			employeeData = FXCollections.observableArrayList(viewEmployeeDB.viewUsers());
 			employeeList = viewEmployeeDB.viewUsers();
 			employeeTable.setItems(employeeData);
-			setTotalEmployees(employeeList);
+			setTotalEmployees(employeeList);*/
 		}else {
 			System.out.println("ViewUsersDAO is inot initialized.employeeData");
 		}
