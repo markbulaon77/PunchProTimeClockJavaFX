@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="800" prefWidth="1500" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UserLoginDashBoardController">
+    <!-- Top Bar -->
+    <top>
+        <HBox style="-fx-background-color: #2E3B4E; -fx-padding: 10; -fx-spacing: 10;">
+            <Label style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="PUNCH PRO TIME CLOCK" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <Label style="-fx-text-fill: white; -fx-font-size: 16px;" text="Username" />
+            <Button style="-fx-font-size: 14px;" text="NICE" />
+        </HBox>
+    </top>
+    
+    <!-- Left Navigation -->
+    <left>
+    <VBox minWidth="250.0" spacing="5" style="-fx-background-color: #3C4A5A; -fx-padding: 10;">
+        <!-- Hamburger Button -->
+        <Button mnemonicParsing="false" onAction="#toggleMenuVisibility" style="-fx-font-size: 20; -fx-text-fill: black;" text="☰" />
+    </VBox>
+</left>
+    
+    <!-- Center Content -->
+    <center>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <!-- Alerts and Tabs -->
+            <HBox spacing="10">
+                <VBox prefWidth="200" style="-fx-background-color: #F4F6F8; -fx-padding: 10;">
+                    <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Alerts" />
+                </VBox>
+                <VBox>
+                    <TabPane>
+                        <Tab text="DAILY" />
+                        <Tab text="WEEKLY" />
+                        <Tab text="MONTHLY" />
+                    </TabPane>
+                    <!-- Weekly Schedule -->
+                    <TableView>
+                        <columns>
+                            <TableColumn text="Day" />
+                            <TableColumn text="Schedule" />
+                            <TableColumn text="Activity" />
+                            <TableColumn text="Start" />
+                            <TableColumn text="End" />
+                        </columns>
+                    </TableView>
+                    <Button style="-fx-alignment: center;" text="Add An Activity" />
+                </VBox>
+            </HBox>
+            
+            <!-- Information Panel -->
+            <HBox spacing="10">
+                <VBox prefWidth="300" style="-fx-background-color: #F4F6F8; -fx-padding: 10;">
+                    <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Information" />
+                    <Label text="Current Scheduled Activity: Open Time 11:10 PM - 1:30 AM" />
+                    <Label text="Next Scheduled Activity: ITSS_Break 1:30 AM - 1:45 AM" />
+                    <Label text="Schedules Released: 2/21/24 - 10/26/24" />
+                    <Label text="Schedules Last Modified: 10/4/24 11:01:36 PM" />
+                </VBox>
+                <VBox>
+                    <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Today is Tuesday, October 8, 2024" />
+                    <TableView>
+                        <columns>
+                            <TableColumn text="Activity" />
+                            <TableColumn text="Start" />
+                            <TableColumn text="End" />
+                        </columns>
+                    </TableView>
+                </VBox>
+            </HBox>
+        </VBox>
+    </center>
+    
+    <!-- Right Sidebar -->
+    <right>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Calendar" />
+            <DatePicker />
+        </VBox>
+    </right>
+</BorderPane>
