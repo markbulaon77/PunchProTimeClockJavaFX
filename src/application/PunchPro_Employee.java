@@ -9,7 +9,9 @@ public class PunchPro_Employee {
 	private String employee_username;
 	private String employee_password;
 	private String employee_job_description;
-	
+	private String user_role;
+
+
 	//This constructor for employee login_validation.
 	public PunchPro_Employee(String employee_username, String employee_password) {
 		this.employee_username = employee_username;
@@ -104,6 +106,11 @@ public class PunchPro_Employee {
 		this.employee_job_description = employee_job_description;
 	}
 
-	
-	
+	public String getUser_role() {
+		return user_role;
+	}
+
+	public void setUser_role(String user_role) {
+		this.user_role = user_role;
+	}
 }

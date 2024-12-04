@@ -5,11 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDAO {
+public class UserVerificationDAO {
 
 	private DatabaseConnection dbConnection;
 	
-	public UserDAO(DatabaseConnection dbConnection) {
+	public UserVerificationDAO(DatabaseConnection dbConnection) {
 		this.dbConnection = dbConnection;
 	}
 
@@ -26,6 +26,10 @@ public class UserDAO {
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()) {
 				is_user_verified = true;
+				String userRole = rs.getString("user_role");
+				String employee_first_name = rs.getString("employee_first_name");
+				employee.setUser_role(userRole);
+				employee.setEmployee_first_name(employee_first_name);
 			}
 		}catch(SQLException e) {
 			System.out.println("Error: " + e.getMessage());

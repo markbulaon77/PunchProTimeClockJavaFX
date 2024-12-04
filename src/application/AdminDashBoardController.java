@@ -19,12 +19,26 @@ public class AdminDashBoardController {
 	@FXML private Label nameLabel;
 	
 	Connection conn;
-	DatabaseConnection dbConnection = new DatabaseConnection();
+	
+	DatabaseConnection dbConnection;
+	
+	//Initialize the database Connection before loading the FXML Controller.
+	@FXML
+	public void initialize() throws ClassNotFoundException
+	{
+		dbConnection = new DatabaseConnection();
+		conn = dbConnection.connect_to_database();
+	}
 	
 	@FXML
-	private void goToCrudForm(ActionEvent e) throws IOException, ClassNotFoundException{
+	public void goToCrudForm(ActionEvent e) throws IOException, ClassNotFoundException{
+		//this.conn = dbConnection.connect_to_database();		
 		
-		this.conn = dbConnection.connect_to_database();		
+		if(conn == null) 
+		{
+			conn = dbConnection.connect_to_database();
+		}
+		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("adminCrudForm.fxml"));
 		Parent adminCrudForm = loader.load();
 		
@@ -40,9 +54,14 @@ public class AdminDashBoardController {
 	}
 	
 	@FXML
-	private void scheduleMgmtForm(ActionEvent e) throws ClassNotFoundException, IOException {
-	
-		this.conn = dbConnection.connect_to_database();
+	public void scheduleMgmtForm(ActionEvent e) throws ClassNotFoundException, IOException 
+	{
+		//this.conn = dbConnection.connect_to_database();
+		if(conn == null) 
+		{
+			conn = dbConnection.connect_to_database();
+		}
+
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("adminScheduleMgmtForm.fxml"));
 		Parent adminSchedMgmt = loader.load();
 			
@@ -57,8 +76,9 @@ public class AdminDashBoardController {
 		
 	}
 	
-	public void setWelcomeMessage(String username) {
-		nameLabel.setText("Welcome: " + username);
+	public void setWelcomeMessage(String employee) 
+	{
+		nameLabel.setText("Welcome: " + employee);
 	}
 	
 }

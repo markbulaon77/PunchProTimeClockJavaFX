@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -54,7 +52,6 @@ public class AdminSchedController {
 	private PunchPro_Schedule newSchedule;
 	private int userNumber;
 	private LocalDate fromDate, toDate;
-	
 	
 	public void setDatabaseConnection(DatabaseConnection dbConnection) throws ClassNotFoundException {
 		this.conn = dbConnection.connect_to_database();	
@@ -152,39 +149,7 @@ public class AdminSchedController {
 	        drawCalendar(userNumber);
 		}else {
 	        System.out.println("Please select an employee first...");
-	    }
-		
-		/*
-		if(selectedEmployee !=null) {
-			PunchPro_Schedule newSchedule = new PunchPro_Schedule(
-			selectedEmployee.getEmployee_number(),
-			selectedEmployee.getEmployee_first_name(),
-			selectedEmployee.getEmployee_last_name(),
-			datePicker.getValue(),
-			startShiftTF.getText(),
-			firstBreakTF.getText(),
-			lunchBreakTF.getText(),
-			secondBreakTF.getText(),
-			endShiftTF.getText()
-			);
-				
-			if(datePicker.getValue() == null) {
-				System.out.println("Please select a date");
-				return;
-			}
-
-			if(schedAddDB.addUserSchedule(newSchedule)) {
-				
-				int userNumber = selectedEmployee.getEmployee_number();
-				drawCalendar(userNumber);
-				
-			}else {
-				System.out.println("Unable to add user.");
-			}
- 		}else {
- 			System.out.println("Please select a new an employee first...");
- 		}*/
-		
+	    }	
 	}
 	
 	@FXML
@@ -281,6 +246,18 @@ public class AdminSchedController {
 		System.out.println("Going back to admin dashboard...");
 	}
 	
+	@FXML 
+	public void goToCrudForm(ActionEvent e) throws IOException{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("adminCrudForm.fxml"));
+		Parent crudForm = loader.load();
+		
+		Scene goToCrudForm = new Scene(crudForm);
+		Stage window = (Stage) ((Node) e.getSource()).getScene().getWindow();
+		window.setScene(goToCrudForm);
+		window.show();
+	}
+	
+	
 	@FXML
 	public void backOneMonth(ActionEvent e) {
 		dateFocus = dateFocus.minusMonths(1);
@@ -331,9 +308,6 @@ public class AdminSchedController {
 
 	            double rectangleHeight = (calendarHeight / 8) - strokeWidth - spacingV;
 	            rectangle.setHeight(rectangleHeight);
-
-	            // Apply CSS class to rectangle (can add more styling in your CSS file)
-	            rectangle.getStyleClass().add("calendar-date");
 	            
 	            stackPane.getChildren().add(rectangle);
 
@@ -344,10 +318,7 @@ public class AdminSchedController {
 	                    Text dateText = new Text(String.valueOf(currentDate));
 	                    dateText.setTranslateY(-(rectangleHeight / 2) * 0.75);
 	                    stackPane.getChildren().add(dateText);
-	                    
-	                    // Apply styling to dateText (CSS class)
-	                    dateText.getStyleClass().add("calendar-date");
-	                    
+ 
 	                    // Check of the employee schedules for the current date.
 	                    LocalDate currentLocalDate = LocalDate.of(dateFocus.getYear(), dateFocus.getMonthValue(), currentDate);
 	                    for (PunchPro_Schedule schedule : scheduleList) {
@@ -356,9 +327,7 @@ public class AdminSchedController {
 	                            		+ schedule.getShift_clock_outTime());	
 	                            scheduleText.setTranslateY((rectangleHeight / 2) * 0.5); // Position below the date
 	                            stackPane.getChildren().add(scheduleText);
-	                            
-	                            // Apply schedule styling from CSS
-	                            scheduleText.getStyleClass().add("calendar-schedule");
+   
 	                            break;
 	                        }
 	                    }

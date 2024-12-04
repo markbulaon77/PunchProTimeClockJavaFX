@@ -13,7 +13,9 @@ public class DatabaseConnection {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/punchprodatabase","root","admin");
+			System.out.println("Connection established successfully.");
 		} catch (SQLException e) {
+			e.printStackTrace();
 			System.out.println("Error: " + e.getMessage() + "contact your local system administrator.");
 		}
 		return conn;
@@ -23,7 +25,9 @@ public class DatabaseConnection {
 		if(conn != null) {
 			try {
 				conn.close();
+				System.out.println("Connection closed successfully");
 			} catch (SQLException e) {
+				e.printStackTrace();
 				System.out.println("Error: " + e.getMessage() + " contact your local system administrator.");
 			}
 		}
